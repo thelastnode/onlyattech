@@ -41,8 +41,6 @@ class Post(Base):
     approval_status = Column(Integer, default=0)
     approval_time = Column(DateTime)
 
-    # TODO photos
-
     def __init__(self, text, category, author):
         if type(author) == User:
             self.author_id = author.id
