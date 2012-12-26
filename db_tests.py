@@ -1,10 +1,21 @@
 import unittest
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
 import db
 
-class UserTestCase(unittest.TestCase):
+class ValidateSchemaTestCase(unittest.TestCase):
+    def testSchema(self):
+        self.engine = create_engine('sqlite:///:memory:')
+
+        db.Base.metadata.create_all(self.engine)
+
+        del self.engine
+
+class AuthenticatedUserTestCase(unittest.TestCase):
     def testPasswordHashing(self):
-        u = db.User('test', 'pw', 'test@example.com', 'Test User')
+        u = db.AuthenticatedUser('test', 'pw', 'test@example.com', 'Test User')
         assert u.password != 'pw', 'Password is stored in plain-text'
         assert not u.verify_password('wrong pw'), \
             'Incorrect passwords validate'
@@ -21,7 +32,6 @@ class PostTestCase(unittest.TestCase):
 
         assert p.text == new_text, "Didn't correctly update text"
         assert p.original_text == orig_text, 'Original text was not retained'
-
 
 if __name__ == '__main__':
     unittest.main()

@@ -68,7 +68,7 @@ class Post(Base):
     original_text = Column(Text)
 
     author_id = Column(Integer, ForeignKey('base_users.id'))
-    author = relationship(User, backref = backref('posts'))
+    author = relationship(BaseUser, backref = backref('posts'))
 
     approval_status = Column(Integer, default=0)
     approval_time = Column(DateTime)
