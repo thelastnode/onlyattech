@@ -1,3 +1,8 @@
+# Editor noise
+\#*
+.#*
+*.sw[op]
+
 *.py[cod]
 
 # C extensions
