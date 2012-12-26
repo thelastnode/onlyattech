@@ -104,7 +104,8 @@ class Flag(Base):
 
     user_id = Column(Integer, ForeignKey('base_users.id'), primary_key = True)
     post_id = Column(Integer, ForeignKey('posts.id'), primary_key = True)
-    time = Column(DateTime, default=func.now())
+    report_date = Column(DateTime, default=func.now())
+    resolve_date = Column(DateTime)
 
     def __init__(self, user_id, post_id):
         self.user_id = user_id
