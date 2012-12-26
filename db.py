@@ -53,3 +53,27 @@ class Post(Base):
 
     def updatePost(self, new_text):
         self.text = new_text
+
+
+class Vote(Base):
+    __tablename__ = 'votes'
+
+    user_id = Column(Integer, ForeignKey('users.id'))
+    post_id = Column(Integer, ForeignKey('posts.id'))
+    time = Column(DateTime, default=func.now())
+
+    def __init__(self, user_id, post_id):
+        self.user_id = user_id
+        self.post_id = post_id
+
+
+class Flag(Base):
+    __tablename__ = 'flags'
+
+    user_id = Column(Integer, ForeignKey('users.id'))
+    post_id = Column(Integer, ForeignKey('posts.id'))
+    time = Column(DateTime, default=func.now())
+
+    def __init__(self, user_id, post_id):
+        self.user_id = user_id
+        self.post_id = post_id
