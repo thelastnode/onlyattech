@@ -12,6 +12,7 @@ class BaseUser(Base):
 
     id = Column(Integer, primary_key = True, autoincrement = True)
     type = Column(String(32))
+    time_created = Column(DateTime, default = func.now())
 
     username = Column(String(32))
 
@@ -52,6 +53,10 @@ class AnonymousUser(BaseUser):
     __mapper_args__ = {
         'polymorphic_identity': 'anonymous_user',
     }
+
+    def __init__(self, username, ip):
+        self.username = username
+        self.ip = ip
 
 
 User = with_polymorphic(BaseUser, '*')
